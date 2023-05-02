@@ -19,7 +19,7 @@ const format = (text) => {
 };
 
 message_input.addEventListener("blur", () => {
-  window.scrollTo(0, 0);
+  window.scrollTo(0, document.body.scrollHeight);
 });
 
 message_input.addEventListener("focus", () => {
@@ -35,7 +35,7 @@ const handle_ask = async () => {
   message_input.style.height = `80px`;
   message_input.focus();
 
-  window.scrollTo(0, 0);
+  
   let message = message_input.value;
 
   if (message.length > 0) {
@@ -60,7 +60,7 @@ const ask_gpt = async (message) => {
     message_input.innerText = ``;
 
     add_conversation(window.conversation_id, message.substr(0, 20));
-    window.scrollTo(0, 0);
+    
     window.controller = new AbortController();
 
     jailbreak = document.getElementById("jailbreak");
@@ -86,9 +86,9 @@ const ask_gpt = async (message) => {
     /* .replace(/(?:\r\n|\r|\n)/g, '<br>') */
 
     message_box.scrollTop = message_box.scrollHeight;
-    window.scrollTo(0, 0);
+    
     await new Promise((r) => setTimeout(r, 500));
-    window.scrollTo(0, 0);
+    
 
     message_box.innerHTML += `
             <div class="message">
@@ -102,9 +102,9 @@ const ask_gpt = async (message) => {
         `;
 
     message_box.scrollTop = message_box.scrollHeight;
-    window.scrollTo(0, 0);
+    
     await new Promise((r) => setTimeout(r, 1000));
-    window.scrollTo(0, 0);
+    
 
     const response = await fetch(`/backend-api/v2/conversation`, {
       method: `POST`,
@@ -168,7 +168,7 @@ const ask_gpt = async (message) => {
         hljs.highlightElement(el);
       });
 
-      window.scrollTo(0, 0);
+      
       message_box.scrollTo({ top: message_box.scrollHeight, behavior: "auto" });
     }
 
@@ -190,7 +190,7 @@ const ask_gpt = async (message) => {
     prompt_lock = false;
 
     await load_conversations(20, 0);
-    window.scrollTo(0, 0);
+    
   } catch (e) {
     add_message(window.conversation_id, "user", message);
 
@@ -215,7 +215,7 @@ const ask_gpt = async (message) => {
       add_message(window.conversation_id, "assistant", text + ` [aborted]`);
     }
 
-    window.scrollTo(0, 0);
+    
   }
 };
 
@@ -493,7 +493,7 @@ document.querySelector(".mobile-sidebar").addEventListener("click", (event) => {
     event.target.classList.add("rotated");
   }
 
-  window.scrollTo(0, 0);
+  
 });
 
 const register_settings_localstorage = async () => {
